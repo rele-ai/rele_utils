@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="releai-utils",
+    name="UtilsTest",
     version="0.0.1",
     author="Gal Shalom",
     author_email="gal@rele.ai",
