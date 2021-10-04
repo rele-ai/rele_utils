@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="releaiUtils",
+    name="rele_utils",
     version="0.0.1",
     author="Gal Shalom",
     author_email="gal@rele.ai",
     description="releai utils internal package",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/rele-ai/ops-utils",
+    url="https://github.com/rele-ai/rele_utils",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
