@@ -19,9 +19,9 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
 	install_requires=[
-        "<google-auth>;python_version<'<2.0.1>'",
-        "<google-cloud>;python_version<'<0.34.0>'",
-        "<google-cloud-container>;python_version<'<2.7.1>'",
-        "<kubernetes>;python_version<'<2.7.1>'",
+        "google-auth==2.0.1",
+        "google-cloud==0.34.0",
+        "google-cloud-container==2.7.1",
+        "kubernetes==18.20.0",
     ]
 )
