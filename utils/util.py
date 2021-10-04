@@ -86,7 +86,8 @@ def kube_command_obj(cluster_values):
   return kube_commands
 
 def export_values(env_on_yaml):
-  config_map_values = yaml.load(open(f"{path}/ops/k8s-configmaps/configMap-{env_on_yaml}.yaml").read(),Loader=yaml.FullLoader)['data']
+  # config_map_values = yaml.load(open(f"{path}/ops/k8s-configmaps/configMap-{env_on_yaml}.yaml").read(),Loader=yaml.FullLoader)['data']
+  config_map_values = load_src_yaml('load_yaml', env_on_yaml)['data']
   for key, value in config_map_values.items():
     os.environ[key] = value
     print(os.environ)
@@ -163,6 +164,8 @@ def load_src_yaml(dir, id):
   '''
   if dir == "None":
     loaded_yaml = yaml.load(open(f"{path}/{id}/releai-config.yaml").read(),Loader=yaml.FullLoader)
+  if dir == "load_yaml":
+    loaded_yaml = yaml.load(open(f"{path}/ops/k8s-configmaps/configmap-{id}.yaml").read(),Loader=yaml.FullLoader)
   else:
     loaded_yaml = yaml.load(open(f"{path}/{dir}/{id}/releai-config.yaml").read(),Loader=yaml.FullLoader)
   return loaded_yaml
