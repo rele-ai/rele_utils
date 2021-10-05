@@ -60,7 +60,7 @@ def kube_command_obj(cluster_values):
   '''
   urllib3.disable_warnings() ## disabled warnings
   os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = cluster_values.get('creds')
-  credentials, _p = google.auth.default(scopes=['https://www.googleapis.com/auth/cloud-platform',])
+  credentials, _p = google.auth.default(scopes=['https://www.googleapis.com/auth/cloud-platform'])
   credentials.refresh(google.auth.transport.requests.Request())
 
   cluster_manager_client = ClusterManagerClient(credentials=credentials)
@@ -84,13 +84,6 @@ def kube_command_obj(cluster_values):
   }
 
   return kube_commands
-
-def export_values(env_on_yaml):
-  # config_map_values = yaml.load(open(f"{path}/ops/k8s-configmaps/configMap-{env_on_yaml}.yaml").read(),Loader=yaml.FullLoader)['data']
-  config_map_values = load_src_yaml('load_yaml', env_on_yaml)['data']
-  for key, value in config_map_values.items():
-    os.environ[key] = value
-    print(os.environ)
 
 def kube_config_map(filename, kube_command):
   '''
@@ -164,7 +157,7 @@ def load_src_yaml(dir, id):
   '''
   if dir == "None":
     loaded_yaml = yaml.load(open(f"{path}/{id}/releai-config.yaml").read(),Loader=yaml.FullLoader)
-  if dir == "load_yaml":
+  elif dir == "load_yaml":
     loaded_yaml = yaml.load(open(f"{path}/ops/k8s-configmaps/configmap-{id}.yaml").read(),Loader=yaml.FullLoader)
   else:
     loaded_yaml = yaml.load(open(f"{path}/{dir}/{id}/releai-config.yaml").read(),Loader=yaml.FullLoader)
@@ -193,7 +186,6 @@ def run_the_yaml_command(dir, id):
   Load and run each test command under "releai-config.yaml"
   '''
   config = load_src_yaml(dir, id)
-  ch_dir(dir, id)
   for command in config['development']['scripts']['test']:
     p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, shell=True)
     output, e = p.communicate()
