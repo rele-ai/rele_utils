@@ -187,7 +187,6 @@ def run_the_yaml_command(dir, id):
   Load and run each test command under "releai-config.yaml"
   '''
   config = load_src_yaml(dir, id)
-  ch_dir(dir, id)
   for command in config['development']['scripts']['test']:
     p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, shell=True)
     output, e = p.communicate()
