@@ -211,7 +211,6 @@ def collect_envs(dir, env_on_yaml, src_list_dir):
       for var in loaded_yaml:
         config_envs.update(var)
   loaded_yaml = load_src_yaml("None", "web")[env_on_yaml]['environment']
-  print(loaded_yaml)
   if loaded_yaml is not None:
     for var in loaded_yaml:
       config_envs.update(var)
