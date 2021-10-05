@@ -238,7 +238,7 @@ def update_version(versionArr, commit_message):
       #determain the required bump type
   for element in commit_message.split(" "):
         if element.find("#") != -1:
-          if element == "#minor" : # minor update by 2 is required
+          if element == "#minor": # minor update by 2 is required
               versionArr[2] = str(int(0))
               versionArr[1] = str(int(versionArr[1]) + 2)
               return versionArr
