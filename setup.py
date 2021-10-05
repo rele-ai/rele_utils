@@ -3,18 +3,16 @@ from setuptools import setup
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setup(
-    name="releai",
+setuptools.setup(
+    name="rele_utils",
     version="0.0.1",
     author="Gal Shalom",
     author_email="gal@rele.ai",
     description="releai utils internal package",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/rele-ai/ops-utils",
-    package_dir={ "utils": "utils" },
-    # packages=setuptools.find_packages(),
-    packages=["utils"],
+    url="https://github.com/rele-ai/rele_utils",
+    packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
