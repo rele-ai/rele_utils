@@ -1,4 +1,4 @@
-from setuptools import setup
+import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -23,5 +23,5 @@ setuptools.setup(
         "google-cloud==0.34.0",
         "google-cloud-container==2.7.1",
         "kubernetes==18.20.0",
-    ],
+    ]
 )
