@@ -155,7 +155,6 @@ def load_src_yaml(dir, id):
   '''
   This function load the service yaml file
   '''
-  print(dir, id)
   if dir == "None":
     loaded_yaml = yaml.load(open(f"{path}/{id}/releai-config.yaml").read(),Loader=yaml.FullLoader)
   elif dir == "load_yaml":
