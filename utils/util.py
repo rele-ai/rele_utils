@@ -60,7 +60,7 @@ def kube_command_obj(cluster_values):
   '''
   urllib3.disable_warnings() ## disabled warnings
   os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = cluster_values.get('creds')
-  credentials, _p = google.auth.default(scopes=['https://www.googleapis.com/auth/cloud-platform',])
+  credentials, _p = google.auth.default(scopes=['https://www.googleapis.com/auth/cloud-platform'])
   credentials.refresh(google.auth.transport.requests.Request())
 
   cluster_manager_client = ClusterManagerClient(credentials=credentials)
@@ -84,13 +84,6 @@ def kube_command_obj(cluster_values):
   }
 
   return kube_commands
-
-def export_values(env_on_yaml):
-  # config_map_values = yaml.load(open(f"{path}/ops/k8s-configmaps/configMap-{env_on_yaml}.yaml").read(),Loader=yaml.FullLoader)['data']
-  config_map_values = load_src_yaml('load_yaml', env_on_yaml)['data']
-  for key, value in config_map_values.items():
-    os.environ[key] = value
-    print(os.environ)
 
 def kube_config_map(filename, kube_command):
   '''
@@ -162,9 +155,10 @@ def load_src_yaml(dir, id):
   '''
   This function load the service yaml file
   '''
+  print(dir, id)
   if dir == "None":
     loaded_yaml = yaml.load(open(f"{path}/{id}/releai-config.yaml").read(),Loader=yaml.FullLoader)
-  if dir == "load_yaml":
+  elif dir == "load_yaml":
     loaded_yaml = yaml.load(open(f"{path}/ops/k8s-configmaps/configmap-{id}.yaml").read(),Loader=yaml.FullLoader)
   else:
     loaded_yaml = yaml.load(open(f"{path}/{dir}/{id}/releai-config.yaml").read(),Loader=yaml.FullLoader)
@@ -217,6 +211,7 @@ def collect_envs(dir, env_on_yaml, src_list_dir):
       for var in loaded_yaml:
         config_envs.update(var)
   loaded_yaml = load_src_yaml("None", "web")[env_on_yaml]['environment']
+  print(loaded_yaml)
   if loaded_yaml is not None:
     for var in loaded_yaml:
       config_envs.update(var)
@@ -243,7 +238,7 @@ def update_version(versionArr, commit_message):
       #determain the required bump type
   for element in commit_message.split(" "):
         if element.find("#") != -1:
-          if element == "#minor": # minor update by 2 is required
+          if element == "#minor" : # minor update by 2 is required
               versionArr[2] = str(int(0))
               versionArr[1] = str(int(versionArr[1]) + 2)
               return versionArr
