@@ -121,7 +121,7 @@ def update_deployment(src, kube_command, git_tag_name):
   with open(f"{path}/ops/k8s/{src}.yaml") as f:
     deployment_obj = list(yaml.load_all(f .read(),Loader=yaml.FullLoader))[0]
     new_deploment_name = f"eu.gcr.io/releai-bot-dev/{src}:{git_tag_name}"
-    deployment_obj.get("spec").get("template").get("spec").get("containers")[0]['image'] = new_deploment_name
+    deployment_obj.get("spec").get("template").get("spec").get("containers")[0]['image'] = new_deploment_name.replace(" ", "")
   deployment_name = deployment_obj.get("metadata").get("name")
   deployment_namespace = deployment_obj.get("metadata").get("namespace")
   new_deployment_obj = json.loads(json.dumps(deployment_obj))
